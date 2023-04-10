@@ -89,7 +89,7 @@ with app.app_context():
 
     rev17= Review( review = "The Chronicles of Narnia is a beloved classic that captures the imagination of readers young and old. Lewis's world-building is enchanting, and his characters are so memorable that they feel like friends. This is a series that you'll want to share with everyone you know." ,user= user5, book= book9)
 
-    rev18= Review( review = "Lewis's writing is both charming and profound. The story of the Pevensie children's adventures in Narnia is both exciting and thought-provoking, and the books' exploration of faith and morality is still relevant today.", user= user6 , book= 9)
+    rev18= Review( review = "Lewis's writing is both charming and profound. The story of the Pevensie children's adventures in Narnia is both exciting and thought-provoking, and the books' exploration of faith and morality is still relevant today.", user= user6 , book= book9)
 
     rev19 = Review( review = "Animal Farm is a powerful allegory that exposes the dangers of totalitarianism. Orwell's writing is sharp and incisive, and his portrayal of the animals' struggle for freedom is both tragic and inspiring. This is a book that everyone should read." ,user= user1, book= book10)
 
