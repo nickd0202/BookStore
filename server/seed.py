@@ -7,35 +7,45 @@ from models import db, User, Book, Review, Quote
 with app.app_context():
 
     print("Deleting data...")
-    User.query.delete
-    Book.query.delete
-    Review.query.delete
-    Quote.query.delete
+    User.query.delete()
+    Book.query.delete()
+    Review.query.delete()
+    Quote.query.delete()
 
     print("Starting seed...")
 
     print("Creating Users...")
 
-    user1 = User(name = "Chris", age = 21)
-    user2 = User(name = "Justin", age = 35)
-    user3 = User(name = "Ayah", age = 32)
-    user4 = User(name = "Robert", age = 54)
-    user5 = User(name = "Nate", age = 27)
-    user6 = User(name = "Isabella", age = 30)
+    user1 = User(username = "Chris", age = 21)
+    user2 = User(username = "Justin", age = 35)
+    user3 = User(username = "Ayah", age = 32)
+    user4 = User(username = "Robert", age = 54)
+    user5 = User(username = "Nate", age = 27)
+    user6 = User(username = "Isabella", age = 30)
 
     users = [user1,user2,user3,user4,user5,user6]
         
     print("Creating Books...")
-    book1 = Book(name ="1984", author = "George Orwell", genre = "Dystopian Fiction", publishDate = "1949")
-    book2 = Book(name = "To Kill a Mockingbird", author = "Harper Lee", genre = "Bildungsroman/Southern Gothic", publishDate = "1960")
-    book3 = Book(name = "The Catcher in the Rye", author = "J.D. Salinger", genre = "Bildungsroman", publishDate = "1951")
-    book4 = Book(name = "The Great Gatsby", author = "F. Scott Fitzgerald", genre = "Jazz Age Novel", publishDate = "1925")
-    book5 = Book(name = "Pride and Prejudice", author = "Jane Austen", genre = "Regency Novel", publishDate = "1813")
-    book6 = Book(name = "One Hundred Years of Solitude", author = "Gabriel García Márquez", genre = "Magical Realism", publishDate = "1967")
-    book7 = Book(name = "The Hobbit", author = "J.R.R. Tolkien", genre = "High Fantasy", publishDate = "1937")
-    book8 = Book(name = "The Diary of a Young Girl", author = "Anne Frank", genre = "Autobiographical Novel", publishDate = "1947")
-    book9 = Book(name = "The Lord of the Rings", author = "J.R.R. Tolkien", genre = "High Fantasy", publishDate = "1954-55")
-    book10 = Book(name = "The Adventures of Huckleberry Finn", author = "Mark Twain", genre = "Bildungsroman", publishDate = "1884")
+    book1 = Book(name ="1984", author = "George Orwell", genre = "Dystopian Fiction", publishDate = "1949" , link="https://www.amazon.com/1984-Signet-Classics-George-Orwell/dp/0451524934/ref=sr_1_2?crid=RLJ13HFXNYIK&keywords=1984&qid=1681233471&sprefix=1984%2Caps%2C114&sr=8-2", summary="Set in a dystopian future, 1984 follows the story of Winston Smith, a low-ranking member of the ruling Party, as he begins to question the oppressive government and its leader, Big Brother. Through its depiction of government surveillance, propaganda, and thought control, 1984 remains a cautionary tale about the dangers of totalitarianism and the importance of individual freedom." ,image="https://kbimages1-a.akamaihd.net/c9472126-7f96-402d-ba57-5ba4c0f4b238/353/569/90/False/nineteen-eighty-four-1984-george.jpg")
+
+    book2 = Book(name = "To Kill a Mockingbird", author = "Harper Lee", genre = "Bildungsroman/Southern Gothic", publishDate = "1960", link="https://www.amazon.com/Kill-Mockingbird-Harper-Lee/dp/0446310786",summary="This classic novel explores themes of racism, injustice, and childhood innocence in the small town of Maycomb, Alabama. Through the eyes of young Scout Finch, readers witness the trial of a black man accused of rape and the deep-seated prejudices of the townspeople. With its memorable characters and timeless message, To Kill a Mockingbird is a must-read for all." ,image="https://target.scene7.com/is/image/Target/GUEST_1607358e-8a84-4160-b93f-15b30b146a9f?wid=488&hei=488&fmt=pjpeg")
+
+    book3 = Book(name = "The Catcher in the Rye", author = "J.D. Salinger", genre = "Bildungsroman", publishDate = "1951" ,link="https://www.amazon.com/Catcher-Rye-J-D-Salinger/dp/0316769177/ref=sr_1_1?crid=24TM4507DG093&keywords=catcher+and+the+reebok&qid=1681233785&s=books&sprefix=catcher+and+the+rebook%2Cstripbooks%2C76&sr=1-1" ,summary="This influential novel follows the teenage protagonist, Holden Caulfield, as he navigates his way through a world he sees as phony and full of hypocrisy. Through Holden's journey, Salinger explores themes of innocence, alienation, and rebellion. With its distinctive voice and lasting impact on popular culture, The Catcher in the Rye is a seminal work of American literature." ,image="https://media.npr.org/assets/artslife/books/2009/10/catcher_custom-853c2f7a4f9f9acaa8647dfdc7b9796555ad54a2-s1100-c50.jpg")
+
+    book4 = Book(name = "The Great Gatsby", author = "F. Scott Fitzgerald", genre = "Jazz Age Novel", publishDate = "1925", link="https://www.amazon.com/Great-Gatsby-Original-Fitzgerald-Classic/dp/B0BF3P5XZS/ref=sr_1_1?crid=2XXMA6Y9WSVB9&keywords=great+gatsby+book&qid=1681233589&s=books&sprefix=great+%2Cstripbooks%2C82&sr=1-1", summary="Set in the Roaring Twenties, The Great Gatsby follows the tragic story of Jay Gatsby, a wealthy but mysterious man who is obsessed with his lost love, Daisy Buchanan. Through Gatsby's pursuit of the American Dream, Fitzgerald critiques the shallow materialism and corruption of the era. With its vivid prose and complex characters, The Great Gatsby is a masterful portrayal of a bygone era." ,image="https://m.media-amazon.com/images/I/71FTb9X6wsL._AC_UF1000,1000_QL80_.jpg")
+
+    book5 = Book(name = "Pride and Prejudice", author = "Jane Austen", genre = "Regency Novel", publishDate = "1813", link="https://www.amazon.com/Pride-Prejudice-Original-Austen-Classics/dp/B09XSV5VM8/ref=sr_1_2_sspa?crid=2XTC5EXPAIB01&keywords=pride+and+prejudice+book&qid=1681233649&s=books&sprefix=pride+and+prejudice+book%2Cstripbooks%2C102&sr=1-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFZVVMyTkZYUzNMNDUmZW5jcnlwdGVkSWQ9QTA2Nzg1NjkzSTQ4U0ZaQ1NTNjRKJmVuY3J5cHRlZEFkSWQ9QTEwMjE1NTExUlpXRU9STjhVVjVXJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==", summary="This classic novel follows the romantic entanglements of the Bennet family, particularly the headstrong Elizabeth Bennet and the proud Mr. Darcy. Austen's sharp wit and social commentary provide a humorous yet insightful look into the society of 19th century England. With its enduring characters and themes of love and class, Pride and Prejudice is a timeless masterpiece." ,image="https://m.media-amazon.com/images/I/5176rSnUxfL.jpg")
+
+    book6 = Book(name = "One Hundred Years of Solitude", author = "Gabriel García Márquez", genre = "Magical Realism", publishDate = "1967", link="https://www.amazon.com/Hundred-Solitude-Harper-Perennial-Classics/dp/0060883286/ref=sr_1_1?crid=3OS0D90IG9IZ8&keywords=100+years+of+solitude+book&qid=1681233706&s=books&sprefix=100+years+of+solitude+book%2Cstripbooks%2C110&sr=1-1", summary="This epic novel chronicles the history of the Buendia family and the fictional town of Macondo over the course of one hundred years. Through magical realism and rich imagery, Marquez weaves a tale of love, war, and political upheaval in Latin America. With its lush prose and masterful storytelling, One Hundred Years of Solitude is a landmark of Latin American literature." ,image="https://target.scene7.com/is/image/Target/GUEST_d9d0b738-42fb-4835-8287-f17ab5bc215d?wid=488&hei=488&fmt=pjpeg")
+
+    book7 = Book(name = "The Hobbit", author = "J.R.R. Tolkien", genre = "High Fantasy", publishDate = "1937", link="https://www.amazon.com/The-Hobbit/dp/B08C8XFQMN/ref=sr_1_1?crid=2AM7FAYNMWSMA&keywords=the+hobbit+book&qid=1681233922&s=books&sprefix=the+hobbit+book%2Cstripbooks%2C78&sr=1-1",summary="This beloved children's book tells the story of Bilbo Baggins, a hobbit who embarks on a quest to reclaim a treasure hoard from the dragon Smaug. Along the way, he meets a host of memorable characters, including the wizard Gandalf and a band of dwarves. With its whimsical tone and imaginative world-building, The Hobbit is a timeless classic of fantasy literature." ,image="https://images.booksense.com/images/683/339/9780345339683.jpg")
+
+    book8 = Book(name = "The Diary of a Young Girl", author = "Anne Frank", genre = "Autobiographical Novel", publishDate = "1947",link="https://www.amazon.com/Anne-Frank-Diary-Young-Definitive/dp/B003NYOBPA/ref=sr_1_2?crid=3F7XZ3Z0ERP1K&keywords=the+diary+of+a+young+girl+book&qid=1681233960&s=audible&sprefix=the+diary+of+a+young+girl+book%2Caudible%2C118&sr=1-2",summary="This powerful memoir documents the experiences of Anne Frank, a Jewish girl living in hiding in Amsterdam during the Nazi occupation of World War II. Through her candid and poignant reflections, readers gain insight into the daily struggles and fears of those living under persecution. With its messages of hope and resilience, The Diary of a Young Girl remains a testament to the human spirit in times of darkness." ,image="https://m.media-amazon.com/images/I/51pFO9wuBCL._AC_UF1000,1000_QL80_.jpg")
+
+    book9 = Book(name = "The Lord of the Rings", author = "J.R.R. Tolkien", genre = "High Fantasy", publishDate = "1954-55",link="https://www.amazon.com/Two-Towers-Lord-Rings-Book/dp/B099NZM5S3/ref=sr_1_2?crid=1WISLWYI9F6LF&keywords=the+lord+of+the+ring+book&qid=1681234001&s=audible&sprefix=the+lord+of+the+ring+book%2Caudible%2C116&sr=1-2",summary="This epic trilogy follows the journey of Frodo Baggins, a hobbit tasked with destroying the powerful and corrupting One Ring. Along with his companions, including the wise wizard Gandalf and the loyal Samwise Gamgee, Frodo faces countless challenges and battles against the forces of evil. With its rich mythology and detailed world-building, The Lord of the Rings is a masterwork of high fantasy." ,image="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1566425108l/33.jpg")
+
+    book10 = Book(name = "The Adventures of Huckleberry Finn", author = "Mark Twain", genre = "Bildungsroman", publishDate = "1884",link="https://www.amazon.com/The-Adventures-of-Huckleberry-Finn/dp/B07W85TDQN/ref=sr_1_4?crid=1IVLWFFRFFVZ&keywords=huckleberry+finn+book&qid=1681234026&s=audible&sprefix=huckleberry+finnbook%2Caudible%2C72&sr=1-4",summary="This classic novel follows the misadventures of Huck Finn, a young boy from the American South, and his friend Jim, a runaway slave. Through their journey down the Mississippi River, Twain explores themes of race, identity, and freedom. With its use of vernacular language and biting satire, The Adventures of Huckleberry Finn remains a landmark of American literature." ,image="https://images.ucpress.edu/covers/isbn13/9780520343641.jpg")
+
 
     books = [book1,book2,book3,book4,book5,book6,book7,book8,book9,book10]
 
@@ -98,7 +108,7 @@ with app.app_context():
 
     reviews = [rev1, rev2, rev3, rev4, rev5, rev6, rev7, rev8, rev9, rev10, rev11, rev12, rev13, rev14, rev15, rev16, rev17, rev18, rev19, rev20]
 
-    db.session.add_all(users)
+    # db.session.add_all(users)
     db.session.add_all(books)
     db.session.add_all(quotes)
     db.session.add_all(reviews)

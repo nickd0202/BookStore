@@ -1,21 +1,110 @@
-from flask import Flask, make_response, request, jsonify
+from flask import Flask, make_response, request, jsonify, session
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
-from flask_cors import CORS
+from sqlalchemy.exc import IntegrityError
 
 from models import db, Book, User, Review, Quote
 
-app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.json.compact = False
+from config import app, db, api
 
-migrate = Migrate(app, db)
 
-db.init_app(app)
 
-api = Api(app)
+class Signup(Resource):
+    
+    def post(self):
+
+        request_json = request.get_json()
+
+        username = request_json.get('username')
+        password = request_json.get('password')
+        age= request_json.get('age')
+
+        user = User(
+            username=username,
+            age=age
+        )
+
+        # the setter will encrypt this
+        user.password_hash = password
+
+        print('first')
+
+        try:
+
+            print('here!')
+
+            db.session.add(user)
+            db.session.commit()
+
+            session['user_id'] = user.id
+
+            print(user.to_dict())
+
+            return user.to_dict(), 201
+
+        except IntegrityError:
+
+            print('no, here!')
+            
+            return {'error': '422 Unprocessable Entity'}, 422
+
+class CheckSession(Resource):
+    
+    def get(self):
+
+        if session.get('user_id'):
+
+            user = User.query.filter(User.id == session['user_id']).first()
+
+            return user.to_dict(), 200
+
+        return {'error': '401 Unauthorized'}, 401
+
+class Login(Resource):
+    
+    def post(self):
+
+        request_json = request.get_json()
+
+        username = request_json.get('username')
+        password = request_json.get('password')
+
+        user = User.query.filter(User.username == username).first()
+
+        if user:
+            if user.authenticate(password):
+
+                session['user_id'] = user.id
+                return user.to_dict(), 200
+
+        return {'error': '401 Unauthorized'}, 401
+
+class Logout(Resource):
+    
+    def delete(self):
+        
+        if session.get('user_id'):
+            
+            session['user_id'] = None
+            
+            return {}, 204
+        
+        return {'error': '401 Unauthorized'}, 401
+
+
+api.add_resource(Signup, '/signup', endpoint='signup')
+api.add_resource(CheckSession, '/check_session', endpoint='check_session')
+api.add_resource(Login, '/login', endpoint='login')
+api.add_resource(Logout, '/logout', endpoint='logout')
+
+
+
+
+
+
+
+
+
 
 
 @app.route('/')
@@ -64,6 +153,43 @@ def book():
             )
     return response
 
+
+@app.route('/quotes', methods=['GET', 'POST'])
+def quote():
+    quotes = Quote.query.all()
+    if request.method == 'GET':
+        quotes_dict = [quote.to_dict() for quote in quotes]
+
+        response = make_response(
+            jsonify(quotes_dict),
+            200
+        )
+
+        return response
+    
+
+    elif request.method == 'POST':
+
+        try:
+            new_quote = Quote(
+                quote = request.get_json()['quote'],
+                book_id = request.get_json()['book_id']
+            )
+            db.session.add(new_quote)
+            db.session.commit()
+
+            response = make_response(
+                jsonify(new_quote.to_dict()),
+                201
+            )
+
+        except ValueError:
+
+            response = make_response(
+                {"error": "validation errors"},
+                400
+            )
+    return response
 
 
 

@@ -3,13 +3,10 @@ from sqlalchemy import MetaData
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy_serializer import SerializerMixin
+from sqlalchemy.ext.hybrid import hybrid_property
 
 
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
-
-db = SQLAlchemy(metadata=metadata)
+from config import db, bcrypt
 # Models go here!
 
 class User(db.Model, SerializerMixin):
@@ -18,7 +15,8 @@ class User(db.Model, SerializerMixin):
     serialize_rules = ('-book_review', '-created_at', '-updated_at')
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
+    username = db.Column(db.String)
+    _password_hash = db.Column(db.String)
     age = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
@@ -26,10 +24,28 @@ class User(db.Model, SerializerMixin):
     book_review = db.relationship('Review', backref='user')
     books = association_proxy('book_review', 'book')
 
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError('Password hashes may not be viewed.')
+
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(
+            password.encode('utf-8'))
+        self._password_hash = password_hash.decode('utf-8')
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(
+            self._password_hash, password.encode('utf-8'))
+
+    def __repr__(self):
+        return f'<User {self.username}>'
+    
+
 class Book(db.Model, SerializerMixin):
     __tablename__ = 'books'
 
-    serialize_rules = ('-book_review', '-book_quote', '-created_at', '-updated_at')
+    serialize_rules = ('-book_review', '-book_quote', '-created_at', '-updated_at', '-Review')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
