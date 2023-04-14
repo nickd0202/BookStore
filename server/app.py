@@ -154,6 +154,64 @@ def book():
     return response
 
 
+@app.route('/books/<int:id>', methods=['GET', 'DELETE', 'PATCH'])
+def bookById(id):
+    book = Book.query.filter_by(id=id).first()
+
+    if request.method == 'GET':
+        if book:
+            book_dict = book.to_dict() 
+
+            response = make_response(
+                jsonify(book_dict),
+                    200
+            )
+        else:
+            response = make_response(
+                {"error": "Book not fount"},
+                404
+            )
+
+        return response
+    
+    elif request.method == 'DELETE':
+        book = Book.query.filter(Book.id == id).first()
+
+        if not book:
+            response = make_response(
+                {"error": "Book not found"},
+                404
+            )
+            return response
+        
+        db.session.delete(book)
+        db.session.commit()
+        return make_response({'success':"DELETED"}, 200)
+    
+    elif request.method == 'PATCH':
+        book = Book.query.filter(Book.id == id).first()
+
+        if not book:
+            response = make_response(
+                {"error": "Book not fount"},
+                404
+            )
+            return response
+        
+        for attr in request.get_json():
+            setattr(book, attr, request.get_json()[attr])
+
+        db.session.add(book)
+        db.session.commit()
+
+        return make_response(
+            book.to_dict(),
+            200
+        )
+
+
+
+
 @app.route('/quotes', methods=['GET', 'POST'])
 def quote():
     quotes = Quote.query.all()

@@ -15,7 +15,7 @@ function NavBar({ user, setUser }) {
   return (
     <Wrapper>
       <Logo>
-        <Link to="/">BookStore?</Link>
+        <Link to="/">Lime La Crox</Link>
       </Logo>
       <Nav>
         <Button as={Link} to="/BookList">
