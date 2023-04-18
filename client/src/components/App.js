@@ -1,19 +1,22 @@
 import React, { useEffect, useState, createContext } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory, useParams } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "./Login";
 import Books from "./Books";
 import HomePage from './HomePage';
 import BookId from './BookId';
 import Edit from './Edit.js';
+import AddBook from "./AddBook";
+import Review from "./Review";
 
 function App() {
   const [user, setUser] = useState(null);
   const [books, setBooks] = useState([]);
   const [deleted, setDeleted] = useState(false);
   const history = useHistory();
+  const { id } = useParams();
+  const [reviews, setReviews] = useState([]);
 
-  const UserContext = createContext()
 
   useEffect(() => {
     // auto-login
@@ -49,6 +52,20 @@ function deleteItem(id){
     .then(() => history.push('/BookList'))
   }
 
+      useEffect(() => {
+        fetch(`/reviews`)
+        .then(res => res.json())
+        .then((data) => setReviews(data))
+      },[]);
+
+    // function getReview(reviews){
+    //     reviews.map((review) => {
+    //         if (review.book.id.toString() === id){
+    //             return (review.review)
+    //         }
+    //     })
+    // }
+
 
 
 
@@ -58,27 +75,30 @@ function deleteItem(id){
     <>
       <NavBar user={user} setUser={setUser} />
       <main>
-        <UserContext.Provider value={deleteItem}>
-          <Switch>
+        <Switch>
 
-            <Route exact path="/">
-              <HomePage />
-            </Route>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
 
-            <Route path="/BookList">
-              <Books books = {books} />
-            </Route>
+          <Route path="/BookList">
+            <Books books = {books} />
+          </Route>
 
-            <Route path="/books/:id">
-              <BookId delete={deleteItem}/>
-            </Route>
+          <Route path="/books/:id">
+            <BookId deleteItem={deleteItem}/>
+            <Review reviews = {reviews}/>
+           </Route>
 
-            <Route path="/edit/:id">
-              <Edit updateBook = {updateBook} />
-            </Route>
+          <Route path="/edit/:id">
+            <Edit updateBook = {updateBook} />
+          </Route>
 
-          </Switch>
-        </UserContext.Provider>
+          <Route path="/AddBook">
+            <AddBook />
+          </Route>
+
+        </Switch>
       </main>
     </>
   );

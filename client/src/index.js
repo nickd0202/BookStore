@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./components/App";
 import { BrowserRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+import {UserProvider} from './components/UserProvider'
 
 const GlobalStyle = createGlobalStyle`
   *,
@@ -22,8 +23,10 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
   <BrowserRouter>
-    <GlobalStyle />
-    <App />
+    <UserProvider>
+      <GlobalStyle />
+      <App />
+    </UserProvider>
   </BrowserRouter>,
   document.getElementById("root")
 );

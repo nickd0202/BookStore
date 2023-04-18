@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, useHistory, useParams } from "react-router-dom"
 
-function BookId(){
+function BookId({deleteItem}){
     const { id } = useParams();
     const [name, setName] = useState("");
     const [author, setAuthor] = useState("");
@@ -10,17 +10,35 @@ function BookId(){
     const [link, setLink] = useState("");
     const [summary, setSummary] =useState ("");
     const [image, setImage] = useState("");
+    const [bookNum, setBookNum] = useState(id);
+    // const [review, setReview] = useState([]);
     // const user = useContext(UserContext);
 
     const openInNewTab = (url) => {
         window.open(url, '_blank', 'noreferrer');
       };
-
+      
     useEffect(() => {
         fetch(`/books/${id}`)
         .then(res => res.json())
         .then((data) => getBook(data))
       },[]);
+
+    // useEffect(() => {
+    //     fetch(`/reviews`)
+    //     .then(res => res.json())
+    //     .then((data) => getReview(data))
+    //   },[]);
+
+    // function getReview(reviews){
+    //     setReview(reviews.map((review) => {
+    //         if (review.book.id.toString() === id){
+    //             return (review.review)
+    //         }
+    //     }))
+    // }
+
+        
 
     function getBook(book){
         setName(book.name)
@@ -30,6 +48,7 @@ function BookId(){
         setLink(book.link)
         setSummary(book.summary)
         setImage(book.image)
+        setBookNum(book.id)
     }
     const linkStyle = {
         textDecoration: "none"
@@ -47,7 +66,7 @@ function BookId(){
             role="link"
             onClick={() => openInNewTab(link)}
             >BUY</button>
-            <button>Delete</button>
+            <button onClick = {() => deleteItem(id)}   className = 'btn' >Delete</button>
             <Link to={`/edit/${id}`} style={linkStyle} ><button>Edit</button></Link>
         </div>
     )

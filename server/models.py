@@ -78,6 +78,12 @@ class Review(db.Model, SerializerMixin):
 
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
+
+    # @validates('review')
+    # def validates_review(self, key, value):
+    #     if 10 <= len(value):
+    #         raise ValueError('Review must be longer than 10 characters')
+    #     return value
     
 class Quote(db.Model, SerializerMixin):
     __tablename__ = 'quotes'

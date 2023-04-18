@@ -107,6 +107,7 @@ with app.app_context():
 
 
     reviews = [rev1, rev2, rev3, rev4, rev5, rev6, rev7, rev8, rev9, rev10, rev11, rev12, rev13, rev14, rev15, rev16, rev17, rev18, rev19, rev20]
+    # reviews = [rev1,rev3,rev5,rev7,rev9,rev11,rev13,rev15,rev17,rev19]
 
     # db.session.add_all(users)
     db.session.add_all(books)

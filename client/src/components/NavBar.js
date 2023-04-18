@@ -21,6 +21,9 @@ function NavBar({ user, setUser }) {
         <Button as={Link} to="/BookList">
           BookList
         </Button>
+        <Button as={Link} to="/AddBook">
+          Add Book
+        </Button>
         <Button variant="outline" onClick={handleLogoutClick}>
           Logout
         </Button>

@@ -250,9 +250,87 @@ def quote():
     return response
 
 
+# @app.route('/reviews/<int:id>', methods=['GET', 'POST'])
+# def review(id):
+#     review = Review.query.filter_by(book_id=id).first()
+#     if request.method == 'GET':
+#         if review:
+#             review_dict = review.to_dict() 
 
+#             response = make_response(
+#                 jsonify(review_dict),
+#                     200
+#             )
+#         else:
+#             response = make_response(
+#                 {"error": "Book not fount"},
+#                 404
+#             )
 
+#         return response
+    
 
+#     elif request.method == 'POST':
+
+#         try:
+#             new_review = Review(
+#                 review = request.get_json()['review'],
+#                 user_id = request.get_json()['user_id'],
+#                 book_id = request.get_json()['book_id']
+#             )
+#             db.session.add(new_review)
+#             db.session.commit()
+
+#             response = make_response(
+#                 jsonify(new_review.to_dict()),
+#                 201
+#             )
+
+#         except ValueError:
+
+#             response = make_response(
+#                 {"error": "validation errors"},
+#                 400
+#             )
+#     return response
+
+@app.route('/reviews', methods=['GET', 'POST'])
+def review():
+    reviews = Review.query.all()
+    if request.method == 'GET':
+        reviews_dict = [review.to_dict() for review in reviews]
+
+        response = make_response(
+            jsonify(reviews_dict),
+            200
+        )
+
+        return response
+    
+
+    elif request.method == 'POST':
+
+        try:
+            new_review = Review(
+                review = request.get_json()['review'],
+                # user_id = request.get_json()['user_id'],
+                book_id = request.get_json()['book_id']
+            )
+            db.session.add(new_review)
+            db.session.commit()
+
+            response = make_response(
+                jsonify(new_review.to_dict()),
+                201
+            )
+
+        except ValueError:
+
+            response = make_response(
+                {"error": "validation errors"},
+                400
+            )
+    return response
 
 
 
