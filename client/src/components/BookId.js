@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, useHistory, useParams } from "react-router-dom"
+import { Container, Divider, Button } from 'semantic-ui-react'
 
 function BookId({deleteItem}){
     const { id } = useParams();
@@ -56,20 +57,44 @@ function BookId({deleteItem}){
 
     return(
         <div>
-            <img src={image} alt={name}/>
-            <h1>{name}</h1>
-            <h2>{author}</h2>
-            <h3>Publish Date: {publishDate}</h3>
-            <h3>Genre: {genre}</h3>
-            <h4>{summary}</h4>
-            <button
-            role="link"
-            onClick={() => openInNewTab(link)}
-            >BUY</button>
-            <button onClick = {() => deleteItem(id)}   className = 'btn' >Delete</button>
-            <Link to={`/edit/${id}`} style={linkStyle} ><button>Edit</button></Link>
+           <Container textAlign='justified'>
+                <img src={image} alt={name}/>
+                <h1>{name}</h1>
+            <Divider />
+                <h2>{author}</h2>
+                <h3>Publish Date: {publishDate}</h3>
+                <h3>Genre: {genre}</h3>
+                <h3>Summary</h3>
+                <h4>{summary}</h4>
+            </Container>
+            <Container textAlign='center'>
+                <Button
+                    role="link"
+                    onClick={() => openInNewTab(link)}
+                    >BUY
+                </Button>
+                <Button onClick = {() => deleteItem(id)}   className = 'btn' >Delete</Button>
+                <Link to={`/edit/${id}`} style={linkStyle} ><Button>Edit</Button></Link>  
+            </Container>
         </div>
+
     )
+
+    //     <div>
+    //         <img src={image} alt={name}/>
+    //         <h1>{name}</h1>
+    //         <h2>{author}</h2>
+    //         <h3>Publish Date: {publishDate}</h3>
+    //         <h3>Genre: {genre}</h3>
+    //         <h4>{summary}</h4>
+    //         <button
+    //         role="link"
+    //         onClick={() => openInNewTab(link)}
+    //         >BUY</button>
+    //         <button onClick = {() => deleteItem(id)}   className = 'btn' >Delete</button>
+    //         <Link to={`/edit/${id}`} style={linkStyle} ><button>Edit</button></Link>
+    //     </div>
+    // )
 }
 
 export default BookId;

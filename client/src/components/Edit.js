@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
-import {Form} from"semantic-ui-react";
+import {Form, Button, Icon} from"semantic-ui-react";
 
 function Edit({updateBook}){
     const { id } = useParams();
@@ -148,7 +148,14 @@ function Edit({updateBook}){
                 value = {link}
             />
         </Form.Field>
-        <input type="submit" />
+        <Button animated type="submit">
+            
+            <Button.Content visible>Submit</Button.Content>
+            <Button.Content hidden>
+            <Icon name='arrow right' />
+            </Button.Content>
+        </Button>
+        
     </Form>
 );
 }

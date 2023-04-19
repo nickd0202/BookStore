@@ -3,30 +3,32 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles";
 
+
 function NavBar({ user, setUser }) {
-  function handleLogoutClick() {
-    fetch("/logout", { method: "DELETE" }).then((r) => {
-      if (r.ok) {
-        setUser(null);
-      }
-    });
-  }
+  // function handleLogoutClick() {
+  //   fetch("/logout", { method: "DELETE" }).then((r) => {
+  //     if (r.ok) {
+  //       setUser(null);
+  //     }
+  //   });
+  // }
 
   return (
+    
     <Wrapper>
       <Logo>
         <Link to="/">Lime La Crox</Link>
       </Logo>
       <Nav>
-        <Button as={Link} to="/BookList">
-          BookList
+        <Button as={Link} to="/Nav">
+          Navigation
         </Button>
-        <Button as={Link} to="/AddBook">
+        {/* <Button as={Link} to="/AddBook">
           Add Book
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>
           Logout
-        </Button>
+        </Button> */}
       </Nav>
     </Wrapper>
   );

@@ -1,10 +1,14 @@
-import React, { useEffect, useState, createContext } from "react";
-import { Switch, Route, useHistory, useParams } from "react-router-dom";
-import {Form} from"semantic-ui-react";
+import React, {  useContext, useState } from "react";
+import {  useParams } from "react-router-dom";
+import { Button, Comment, Form, Header, Container } from 'semantic-ui-react'
 import ReviewBreak from "./ReviewBreak";
+import UserContext from "./User";
 
 function Review({reviews}){
+    const user = useContext(UserContext)
     const { id } = useParams();
+
+
     const revList = reviews.map((review) => {
         if (review.book.id.toString() === id){
             return (
@@ -45,24 +49,59 @@ function Review({reviews}){
       }
 
 
-    return( 
-        <div>
-            <ul className = "reviews">{revList}</ul>
-            <Form onSubmit={() => handleSubmit(id)} style={{ maxWidth: '1000px' }}>
-            <Form.Field>
-                <label>Review: </label>
-                <input
-                    type="text"
-                    name="review"
-                    placeholder="Create A Review"
-                    className = "input-text"
-                    onChange = {handleRev}
-                    value = {newRev}
-                />
-            </Form.Field>
-            <input type="submit" />
-            </Form>
-        </div>
+    return(
+        <Container textAlign='justified'>
+            <div>
+            
+                <Comment.Group>
+                    <Header as='h3' dividing>
+                    
+                    Reviews
+                    
+                    </Header>
+
+                    <Comment>
+                        <Comment.Content>
+                            <Comment.Author as='a'>{user.username}</Comment.Author>
+                            <Comment.Text><ul className = "reviews">{revList}</ul></Comment.Text>
+                        </Comment.Content>
+                    </Comment>
+
+
+                    <Form reply onSubmit={() => handleSubmit(id)}>
+                    <Form.Field>
+                            <input
+                            type="text"
+                            name="review"
+                            placeholder="Create A Review"
+                            className = "input-text"
+                            onChange = {handleRev}
+                            value = {newRev}
+                        />
+                    </Form.Field>
+                        <Button content='Add Review' labelPosition='left' icon='edit' primary />
+                    </Form>
+                </Comment.Group>
+            
+            </div> 
+        </Container>
+        // <div>
+        //     <ul className = "reviews">{revList}</ul>
+        //     <Form onSubmit={() => handleSubmit(id)} style={{ maxWidth: '1000px' }}>
+        //     <Form.Field>
+        //         <label>Review: </label>
+        //         <input
+        //             type="text"
+        //             name="review"
+        //             placeholder="Create A Review"
+        //             className = "input-text"
+        //             onChange = {handleRev}
+        //             value = {newRev}
+        //         />
+        //     </Form.Field>
+        //     <input type="submit" />
+        //     </Form>
+        // </div>
     )
 }
 

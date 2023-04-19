@@ -77,7 +77,7 @@ class Login(Resource):
                 session['user_id'] = user.id
                 return user.to_dict(), 200
 
-        return {'error': '401 Unauthorized'}, 401
+        return {'error': 'I believe you put in the wrong username or password, but you can always make a new account!'}, 401
 
 class Logout(Resource):
     

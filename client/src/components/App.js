@@ -8,6 +8,10 @@ import BookId from './BookId';
 import Edit from './Edit.js';
 import AddBook from "./AddBook";
 import Review from "./Review";
+import UserContext from "./User";
+import NavPage from "./NavPage";
+
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -73,33 +77,43 @@ function deleteItem(id){
 
   return (
     <>
-      <NavBar user={user} setUser={setUser} />
+    <UserContext.Provider value={user}>
       <main>
         <Switch>
 
           <Route exact path="/">
+            <NavBar />
             <HomePage />
           </Route>
 
           <Route path="/BookList">
+            <NavBar />
             <Books books = {books} />
           </Route>
 
           <Route path="/books/:id">
+            <NavBar />
             <BookId deleteItem={deleteItem}/>
             <Review reviews = {reviews}/>
            </Route>
 
           <Route path="/edit/:id">
+            <NavBar />
             <Edit updateBook = {updateBook} />
           </Route>
 
           <Route path="/AddBook">
+            <NavBar />
             <AddBook />
+          </Route>
+
+          <Route path="/Nav">
+            <NavPage user={user} setUser={setUser}/>
           </Route>
 
         </Switch>
       </main>
+      </UserContext.Provider>
     </>
   );
 }

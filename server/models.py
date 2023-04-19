@@ -64,6 +64,12 @@ class Book(db.Model, SerializerMixin):
 
     book_quote = db.relationship('Quote', backref='book')
 
+    @validates('image')
+    def validates_image(self, key, value):
+        if len(value) < 3:
+            raise ValueError('Image link must be over 3 characters')
+        return value
+
 class Review(db.Model, SerializerMixin):
     __tablename__ = 'reviews'
 
