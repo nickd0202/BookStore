@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
-import {Form} from"semantic-ui-react";
+import React, {  useState } from "react";
+import {  useHistory } from "react-router-dom";
+import {Form, Button, Icon} from"semantic-ui-react";
 
 function AddBook (){
 
-    const { id } = useParams();
     const [name, setName] = useState("");
     const [author, setAuthor] = useState("");
     const [publishDate, setPublishDate] = useState("");
@@ -68,9 +67,10 @@ function AddBook (){
 
 
     return (
-        <Form onSubmit={() => handleSubmit()} style={{ maxWidth: '1000px' }}>
+        <div class="add">
+        <Form onSubmit={() => handleSubmit()} style={{ maxWidth: '1000px'}}>
         <h3 id ="form-title">Add A Book!</h3>
-        <Form.Field>
+        <Form.Field >
             <label>Name: </label>
             <input
                 type="text"
@@ -147,8 +147,15 @@ function AddBook (){
                 value = {link}
             />
         </Form.Field>
-        <input type="submit" />
+        <Button animated type="submit">
+            
+            <Button.Content visible>Submit</Button.Content>
+            <Button.Content hidden>
+            <Icon name='arrow right' />
+            </Button.Content>
+        </Button>
     </Form>
+    </div>
     );
 }
 

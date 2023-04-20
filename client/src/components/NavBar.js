@@ -1,34 +1,26 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles";
+import UserContext from "./User";
 
-
-function NavBar({ user, setUser }) {
-  // function handleLogoutClick() {
-  //   fetch("/logout", { method: "DELETE" }).then((r) => {
-  //     if (r.ok) {
-  //       setUser(null);
-  //     }
-  //   });
-  // }
+function NavBar() {
+  const user = useContext(UserContext)
 
   return (
     
     <Wrapper>
       <Logo>
-        <Link to="/">Lime La Crox</Link>
+        <Link to="/Nav">Lime La Crox</Link>
       </Logo>
       <Nav>
-        <Button as={Link} to="/Nav">
-          Navigation
+        <Button variant="outline" as={Link} to="/EasterEgg">
+          Random Button
         </Button>
-        {/* <Button as={Link} to="/AddBook">
-          Add Book
+        <Button >
+          You are logged in as: {user.username}
         </Button>
-        <Button variant="outline" onClick={handleLogoutClick}>
-          Logout
-        </Button> */}
+
       </Nav>
     </Wrapper>
   );

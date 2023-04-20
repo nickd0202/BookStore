@@ -1,11 +1,9 @@
-import React, {  useContext, useState } from "react";
+import React, { useState } from "react";
 import {  useParams } from "react-router-dom";
 import { Button, Comment, Form, Header, Container } from 'semantic-ui-react'
 import ReviewBreak from "./ReviewBreak";
-import UserContext from "./User";
 
 function Review({reviews}){
-    const user = useContext(UserContext)
     const { id } = useParams();
 
 
@@ -62,7 +60,6 @@ function Review({reviews}){
 
                     <Comment>
                         <Comment.Content>
-                            <Comment.Author as='a'>{user.username}</Comment.Author>
                             <Comment.Text><ul className = "reviews">{revList}</ul></Comment.Text>
                         </Comment.Content>
                     </Comment>

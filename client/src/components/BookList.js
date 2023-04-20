@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom"
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
 
 
 function BookList({id,name,author,publishDate,genre,link,summary,image}){
-
-    const linkStyle= { 
-        textDecoration: "none"
-    }
-
-
-
 
     return(
             <Card as={Link} to={`/books/${id}`}>

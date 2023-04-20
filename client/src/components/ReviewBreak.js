@@ -1,8 +1,9 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+
+import { Divider} from 'semantic-ui-react'
+
 
 function ReviewBreak({review}){
-    const { id } = useParams();
     // const [newRev, setNewRev] = useState("")
 
     // function handleRev(newRev){
@@ -32,7 +33,10 @@ function ReviewBreak({review}){
 
 
     return(
-        <h1>{review}</h1>
+        <div>
+            <p>{review}</p>
+            <Divider />
+        </div>
     )
 }
 

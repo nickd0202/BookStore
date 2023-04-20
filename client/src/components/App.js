@@ -1,5 +1,5 @@
-import React, { useEffect, useState, createContext } from "react";
-import { Switch, Route, useHistory, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Switch, Route, useHistory } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "./Login";
 import Books from "./Books";
@@ -10,6 +10,9 @@ import AddBook from "./AddBook";
 import Review from "./Review";
 import UserContext from "./User";
 import NavPage from "./NavPage";
+// import Ai from "./Ai";
+// import Aisystem from "./Aisystem";
+import Snake from "./Snake";
 
 
 
@@ -18,7 +21,6 @@ function App() {
   const [books, setBooks] = useState([]);
   const [deleted, setDeleted] = useState(false);
   const history = useHistory();
-  const { id } = useParams();
   const [reviews, setReviews] = useState([]);
 
 
@@ -109,6 +111,11 @@ function deleteItem(id){
 
           <Route path="/Nav">
             <NavPage user={user} setUser={setUser}/>
+          </Route>
+
+          <Route path="/EasterEgg">
+            <NavBar />
+            <Snake />
           </Route>
 
         </Switch>
