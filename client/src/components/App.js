@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory, useParams } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "./Login";
 import Books from "./Books";
@@ -10,13 +10,12 @@ import AddBook from "./AddBook";
 import Review from "./Review";
 import UserContext from "./User";
 import NavPage from "./NavPage";
-// import Ai from "./Ai";
-// import Aisystem from "./Aisystem";
 import Snake from "./Snake";
 
 
 
 function App() {
+  const { id } = useParams();
   const [user, setUser] = useState(null);
   const [books, setBooks] = useState([]);
   const [deleted, setDeleted] = useState(false);
@@ -32,6 +31,7 @@ function App() {
       }
     });
   }, []);
+
 
   useEffect(() => {
     fetch("http://127.0.0.1:5555/books")

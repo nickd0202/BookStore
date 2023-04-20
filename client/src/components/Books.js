@@ -1,9 +1,10 @@
 import React from "react";
 import BookList from "./BookList";
+import { useParams} from "react-router-dom"
 import "../CSS/Books.css"
 
 function Books({books}){
-
+    const { id } = useParams();
     const bookList = books.map((book) => {
         return (
             <BookList

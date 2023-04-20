@@ -1,12 +1,12 @@
 import React, {useContext} from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles";
 import UserContext from "./User";
 
 function NavBar() {
   const user = useContext(UserContext)
-
+  const { id } = useParams();
   return (
     
     <Wrapper>

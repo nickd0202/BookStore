@@ -11,6 +11,7 @@ function BookId({deleteItem}){
     const [link, setLink] = useState("");
     const [summary, setSummary] =useState ("");
     const [image, setImage] = useState("");
+    const [bookNum, setBookNum] = useState(id);
 
     // const [review, setReview] = useState([]);
     // const user = useContext(UserContext);
@@ -49,6 +50,7 @@ function BookId({deleteItem}){
         setLink(book.link)
         setSummary(book.summary)
         setImage(book.image)
+        setBookNum(book.id)
     }
     const linkStyle = {
         textDecoration: "none"
