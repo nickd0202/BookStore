@@ -1,12 +1,12 @@
 import React, {useContext} from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles";
 import UserContext from "./User";
 
 function NavBar() {
   const user = useContext(UserContext)
-
+  const { id } = useParams();
   return (
     
     <Wrapper>
@@ -14,9 +14,9 @@ function NavBar() {
         <Link to="/Nav">Lime La Crox</Link>
       </Logo>
       <Nav>
-        <Button variant="outline" as={Link} to="/EasterEgg">
+        {/* <Button variant="outline" as={Link} to="/EasterEgg">
           Random Button
-        </Button>
+        </Button> */}
         <Button >
           You are logged in as: {user.username}
         </Button>

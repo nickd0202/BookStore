@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory, useParams } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "./Login";
 import Books from "./Books";
@@ -10,13 +10,13 @@ import AddBook from "./AddBook";
 import Review from "./Review";
 import UserContext from "./User";
 import NavPage from "./NavPage";
-// import Ai from "./Ai";
-// import Aisystem from "./Aisystem";
 import Snake from "./Snake";
+import Review2 from "./Review2";
 
 
 
 function App() {
+  const { id } = useParams();
   const [user, setUser] = useState(null);
   const [books, setBooks] = useState([]);
   const [deleted, setDeleted] = useState(false);
@@ -32,6 +32,7 @@ function App() {
       }
     });
   }, []);
+
 
   useEffect(() => {
     fetch("http://127.0.0.1:5555/books")
@@ -96,7 +97,8 @@ function deleteItem(id){
           <Route path="/books/:id">
             <NavBar />
             <BookId deleteItem={deleteItem}/>
-            <Review reviews = {reviews}/>
+            {/* <Review reviews = {reviews}/> */}
+            <Review2 reviews = {reviews} />
            </Route>
 
           <Route path="/edit/:id">
@@ -113,10 +115,10 @@ function deleteItem(id){
             <NavPage user={user} setUser={setUser}/>
           </Route>
 
-          <Route path="/EasterEgg">
+          {/* <Route path="/EasterEgg">
             <NavBar />
             <Snake />
-          </Route>
+          </Route> */}
 
         </Switch>
       </main>

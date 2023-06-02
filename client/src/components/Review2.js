@@ -3,12 +3,13 @@ import {  useParams } from "react-router-dom";
 import { Button, Comment, Form, Header, Container } from 'semantic-ui-react'
 import ReviewBreak from "./ReviewBreak";
     
-function Review({reviews}){
+function Review2({reviews}){
     const { id } = useParams();
 
     console.log(id)
+    console.log(reviews)
     const revList = reviews.map((review) => {
-        if (review.book.id.toString() === id){
+        if (review.book && review.book.id && review.book_id.toString() === id.toString()){
             return (
             <ReviewBreak 
             key = {review.id}
@@ -16,6 +17,7 @@ function Review({reviews}){
             />
             
         )}else{
+            console.log("wow")
             return null
         }
     })
@@ -41,7 +43,6 @@ function Review({reviews}){
             }).then((res) => {
                 if (res.ok) {
                     res.json().then(() => {
-                        // history.push('/BookList')
                         window.location.reload();
                     })
                 }
@@ -84,24 +85,7 @@ function Review({reviews}){
             
             </div> 
         </Container>
-        // <div>
-        //     <ul className = "reviews">{revList}</ul>
-        //     <Form onSubmit={() => handleSubmit(id)} style={{ maxWidth: '1000px' }}>
-        //     <Form.Field>
-        //         <label>Review: </label>
-        //         <input
-        //             type="text"
-        //             name="review"
-        //             placeholder="Create A Review"
-        //             className = "input-text"
-        //             onChange = {handleRev}
-        //             value = {newRev}
-        //         />
-        //     </Form.Field>
-        //     <input type="submit" />
-        //     </Form>
-        // </div>
     )
 }
 
-export default Review;
+export default Review2;
