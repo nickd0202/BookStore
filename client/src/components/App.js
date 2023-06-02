@@ -11,6 +11,7 @@ import Review from "./Review";
 import UserContext from "./User";
 import NavPage from "./NavPage";
 import Snake from "./Snake";
+import Review2 from "./Review2";
 
 
 
@@ -96,7 +97,8 @@ function deleteItem(id){
           <Route path="/books/:id">
             <NavBar />
             <BookId deleteItem={deleteItem}/>
-            <Review reviews = {reviews}/>
+            {/* <Review reviews = {reviews}/> */}
+            <Review2 reviews = {reviews} />
            </Route>
 
           <Route path="/edit/:id">
@@ -113,10 +115,10 @@ function deleteItem(id){
             <NavPage user={user} setUser={setUser}/>
           </Route>
 
-          <Route path="/EasterEgg">
+          {/* <Route path="/EasterEgg">
             <NavBar />
             <Snake />
-          </Route>
+          </Route> */}
 
         </Switch>
       </main>

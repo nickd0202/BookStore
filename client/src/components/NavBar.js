@@ -14,9 +14,9 @@ function NavBar() {
         <Link to="/Nav">Lime La Crox</Link>
       </Logo>
       <Nav>
-        <Button variant="outline" as={Link} to="/EasterEgg">
+        {/* <Button variant="outline" as={Link} to="/EasterEgg">
           Random Button
-        </Button>
+        </Button> */}
         <Button >
           You are logged in as: {user.username}
         </Button>
